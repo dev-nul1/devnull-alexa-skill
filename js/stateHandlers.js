@@ -9,6 +9,7 @@ var stateHandlers = {
         /*
          *  All Intent Handlers for state : START_MODE
          */
+
         'LaunchRequest' : function () {
             // Initialize Attributes
             this.attributes['playOrder'] = Array.apply(null, {length: audioData.length}).map(Number.call, Number);
@@ -20,10 +21,10 @@ var stateHandlers = {
             //  Change state to START_MODE
             this.handler.state = constants.states.START_MODE;
 
-            var message = 'Welcome to null audio. You can say, play the audio to begin the audio.';
-            var reprompt = 'You can say, play the audio, to begin.';
+            var message = 'Welcome to null audio. Enjoy the sounds of the rain.';
+            //var reprompt = 'You can say, play the audio, to begin.';
 
-            this.response.speak(message).listen(reprompt);
+            //this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
         },
         'PlayAudio' : function () {
@@ -41,17 +42,17 @@ var stateHandlers = {
             controller.play.call(this);
         },
         'AMAZON.HelpIntent' : function () {
-            var message = 'Welcome to null audio. You can say, play the audio, to begin the audio.';
-            this.response.speak(message).listen(message);
+            var message = 'Welcome to null audio. Sit back and enjoy. Say Play to play!';
+            this.response.speak(message);
             this.emit(':responseReady');
         },
         'AMAZON.StopIntent' : function () {
-            var message = 'Good bye.';
+            var message = 'Good bye. God speed';
             this.response.speak(message);
             this.emit(':responseReady');
         },
         'AMAZON.CancelIntent' : function () {
-            var message = 'Good bye.';
+            var message = 'Good bye. God speed';
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -59,8 +60,8 @@ var stateHandlers = {
             // No session ended logic
         },
         'Unhandled' : function () {
-            var message = 'Sorry, I could not understand. Please say, play the audio, to begin the audio.';
-            this.response.speak(message).listen(message);
+            var message = 'Sorry, I could not understand. Please say, Play to play the audio.';
+            this.response.speak(message); //.listen(message)
             this.emit(':responseReady');
         }
     }),
@@ -82,16 +83,16 @@ var stateHandlers = {
             var reprompt;
             if (this.attributes['playbackFinished']) {
                 this.handler.state = constants.states.START_MODE;
-                message = 'Welcome to null audio. You can say, play the audio to begin the audio.';
-                reprompt = 'You can say, play the audio, to begin.';
+                message = 'Welcome to null audio. Sit back and enjoy.';
+                //reprompt = 'You can say, play the audio, to begin.';
             } else {
                 this.handler.state = constants.states.RESUME_DECISION_MODE;
                 message = 'You were listening to ' + audioData[this.attributes['playOrder'][this.attributes['index']]].title +
                     ' Would you like to resume?';
                 reprompt = 'You can say yes to resume or no to play from the top.';
+                this.response.speak(message).listen(reprompt);
             }
 
-            this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
         },
         'PlayAudio' : function () { controller.play.call(this) },
@@ -107,8 +108,8 @@ var stateHandlers = {
         'AMAZON.ShuffleOffIntent' : function () { controller.shuffleOff.call(this) },
         'AMAZON.StartOverIntent' : function () { controller.startOver.call(this) },
         'AMAZON.HelpIntent' : function () {
-            // This will called while audio is playing and a user says "ask <invocation_name> for help"
-            var message = 'You are listening to null audio. You can say, Next or Previous to navigate through the playlist. ' +
+            // This will be called while audio is playing and a user says "ask <invocation_name> for help"
+            var message = 'You are listening to null audio. You can say, Next or Previous to navigate through the our special playlist. ' +
                 'At any time, you can say Pause to pause the audio and Resume to resume.';
             this.response.speak(message).listen(message);
             this.emit(':responseReady');
@@ -152,12 +153,12 @@ var stateHandlers = {
             this.emit(':responseReady');
         },
         'AMAZON.StopIntent' : function () {
-            var message = 'Good bye.';
+            var message = 'Good bye. We hope you enjoyed our sounds!';
             this.response.speak(message);
             this.emit(':responseReady');
         },
         'AMAZON.CancelIntent' : function () {
-            var message = 'Good bye.';
+            var message = 'Good bye. We hope you enjoyed our sounds!';
             this.response.speak(message);
             this.emit(':responseReady');
         },

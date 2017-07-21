@@ -1,6 +1,6 @@
 'use strict';
 
-// Audio Source - AWS Podcast : https://aws.amazon.com/podcasts/aws-podcast/
+// Audio Source - My files..
 var audioData = [
     {
         'title' : 'Heavy Rain',

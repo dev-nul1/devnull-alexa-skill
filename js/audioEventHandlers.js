@@ -15,6 +15,7 @@ var audioEventHandlers = Alexa.CreateStateHandler(constants.states.PLAY_MODE, {
         this.attributes['token'] = getToken.call(this);
         this.attributes['index'] = getIndex.call(this);
         this.attributes['playbackFinished'] = false;
+        console.log("Playback Started : ");
         this.emit(':saveState', true);
     },
     'PlaybackFinished' : function () {

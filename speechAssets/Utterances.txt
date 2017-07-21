@@ -18,3 +18,9 @@ NullAudio to start the podcast
 NullAudio to start playing the podcast
 NullAudio to play the podcast
 NullAudio to play the audio
+NullAudio play another
+NullAudio play another podcast
+NullAudio play another audio
+NullAudio play again
+NullAudio play it again
+NullAudio play the audio again
