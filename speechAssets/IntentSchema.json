@@ -1,7 +1,7 @@
 {
   "intents": [
     {
-      "intent": "null audio"
+      "intent": "NullAudio"
     },
     {
       "intent": "AMAZON.PauseIntent"

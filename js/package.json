@@ -1,5 +1,5 @@
 {
-  "name": "Null Audio",
+  "name": "null-audio",
   "version": "1.0.0",
   "description": "Play nice sounds from nature for productivity and sleep.",
   "main": "index.js",
@@ -18,8 +18,8 @@
   "dependencies": {
     "alexa-sdk": "^1.0.4"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/dev-nul1/devnull-alexa-skill"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-nul1/devnull-alexa-skill"
   }
 }
