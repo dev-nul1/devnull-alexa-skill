@@ -1,6 +1,6 @@
 {
   "name": "null-audio",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Play nice sounds from nature for productivity and sleep.",
   "main": "index.js",
   "scripts": {

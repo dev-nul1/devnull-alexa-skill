@@ -1,26 +1,18 @@
-NullAudio begin podcast
-NullAudio begin the podcast
-NullAudio begin playing the podcast
 NullAudio begin the audio
 NullAudio begin audio
-NullAudio start podcast
-NullAudio start the podcast
-NullAudio start playing the podcast
+
+NullAudio start the audio
 NullAudio start audio
 NullAudio start playing the audio
-NullAudio play the podcast
+
 NullAudio to play
-NullAudio to begin podcast
-NullAudio to begin the podcast
-NullAudio to begin playing the podcast
-NullAudio to start podcast
-NullAudio to start the podcast
-NullAudio to start playing the podcast
-NullAudio to play the podcast
 NullAudio to play the audio
+
 NullAudio play another
-NullAudio play another podcast
-NullAudio play another audio
+NullAudio play another sound
 NullAudio play again
 NullAudio play it again
 NullAudio play the audio again
+
+AMAZON.YesIntent yes
+AMAZON.YesIntent ok

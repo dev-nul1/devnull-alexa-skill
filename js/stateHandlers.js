@@ -9,31 +9,40 @@ var stateHandlers = {
         /*
          *  All Intent Handlers for state : START_MODE
          */
-
+        'NullAudioIntent': function () {
+            // Code for the custom GetLocationIntent goes here.
+            //this.response.audioPlayerPlay('REPLACE_ALL', audioData, '12345', null, 0);
+            console.log("Null Audio requests LaunchRequest in START_MODE: ");
+            this.emit(':responseReady');
+        },
         'LaunchRequest' : function () {
             // Initialize Attributes
+            this.emit('NullAudioIntent');
             this.attributes['playOrder'] = Array.apply(null, {length: audioData.length}).map(Number.call, Number);
             this.attributes['index'] = 0;
             this.attributes['offsetInMilliseconds'] = 0;
-            this.attributes['loop'] = true;
+            this.attributes['loop'] = false;
             this.attributes['shuffle'] = false;
             this.attributes['playbackIndexChanged'] = true;
             //  Change state to START_MODE
             this.handler.state = constants.states.START_MODE;
 
             var message = 'Welcome to null audio. Enjoy the sounds of the rain.';
-            //var reprompt = 'You can say, play the audio, to begin.';
+            var reprompt = 'You can say, play the audio, to begin.';
 
-            //this.response.speak(message).listen(reprompt);
+            this.response.speak(message).listen(reprompt);
+            //this.response.audioPlayerPlay('REPLACE_ALL', audioData, '1234', null, 0);
             this.emit(':responseReady');
+            console.log("Finished LaunchRequest: in START_MODE");
         },
-        'PlayAudio' : function () {
+        'NullAudio' : function () {
+            console.log("Start PlayAudio in START_MODE: ");
             if (!this.attributes['playOrder']) {
                 // Initialize Attributes if undefined.
                 this.attributes['playOrder'] = Array.apply(null, {length: audioData.length}).map(Number.call, Number);
                 this.attributes['index'] = 0;
                 this.attributes['offsetInMilliseconds'] = 0;
-                this.attributes['loop'] = true;
+                this.attributes['loop'] = false;
                 this.attributes['shuffle'] = false;
                 this.attributes['playbackIndexChanged'] = true;
                 //  Change state to START_MODE
@@ -42,7 +51,7 @@ var stateHandlers = {
             controller.play.call(this);
         },
         'AMAZON.HelpIntent' : function () {
-            var message = 'Welcome to null audio. Sit back and enjoy. Say Play to play!';
+            var message = 'Welcome to null audio. Sit back and enjoy.';
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -60,7 +69,7 @@ var stateHandlers = {
             // No session ended logic
         },
         'Unhandled' : function () {
-            var message = 'Sorry, I could not understand. Please say, Play to play the audio.';
+            var message = 'Sorry, I could not understand. First Tier';
             this.response.speak(message); //.listen(message)
             this.emit(':responseReady');
         }
@@ -69,6 +78,11 @@ var stateHandlers = {
         /*
          *  All Intent Handlers for state : PLAY_MODE
          */
+        'NullAudioIntent' : function () {
+            this.response.audioPlayerPlay('REPLACE_ALL', audioData, '12345', null, 0);
+            console.log("Null Audio requests LaunchRequest in PLAY_MODE: ");
+            this.emit(':responseReady');
+        },
         'LaunchRequest' : function () {
             /*
              *  Session resumed in PLAY_MODE STATE.
@@ -81,21 +95,24 @@ var stateHandlers = {
              */
             var message;
             var reprompt;
+            console.log("Finished LaunchRequest in PLAY_MODE: ");
+            //this.response.audioPlayerPlay('REPLACE_ALL', audioData, '12345', null, 0);
             if (this.attributes['playbackFinished']) {
                 this.handler.state = constants.states.START_MODE;
                 message = 'Welcome to null audio. Sit back and enjoy.';
-                //reprompt = 'You can say, play the audio, to begin.';
+                reprompt = 'You can say, play the audio, to begin hearing some fucking noise.';
             } else {
                 this.handler.state = constants.states.RESUME_DECISION_MODE;
                 message = 'You were listening to ' + audioData[this.attributes['playOrder'][this.attributes['index']]].title +
                     ' Would you like to resume?';
                 reprompt = 'You can say yes to resume or no to play from the top.';
-                this.response.speak(message).listen(reprompt);
+                
             }
 
+            this.response.speak(message).listen(reprompt);
             this.emit(':responseReady');
         },
-        'PlayAudio' : function () { controller.play.call(this) },
+        'NullAudio' : function () { controller.play.call(this) },
         'AMAZON.NextIntent' : function () { controller.playNext.call(this) },
         'AMAZON.PreviousIntent' : function () { controller.playPrevious.call(this) },
         'AMAZON.PauseIntent' : function () { controller.stop.call(this) },
