@@ -14,5 +14,9 @@ NullAudio play again
 NullAudio play it again
 NullAudio play the audio again
 
+NullAudio play audio
+NullAudio start stream
+NullAudio play stream
+
 AMAZON.YesIntent yes
 AMAZON.YesIntent ok

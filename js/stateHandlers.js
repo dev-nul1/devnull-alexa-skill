@@ -17,7 +17,7 @@ var stateHandlers = {
         },
         'LaunchRequest' : function () {
             // Initialize Attributes
-            this.emit('NullAudioIntent');
+            //this.emit('NullAudioIntent');
             this.attributes['playOrder'] = Array.apply(null, {length: audioData.length}).map(Number.call, Number);
             this.attributes['index'] = 0;
             this.attributes['offsetInMilliseconds'] = 0;
@@ -36,7 +36,7 @@ var stateHandlers = {
             console.log("Finished LaunchRequest: in START_MODE");
         },
         'NullAudio' : function () {
-            console.log("Start PlayAudio in START_MODE: ");
+            console.log("Start NullAudio in START_MODE: ");
             if (!this.attributes['playOrder']) {
                 // Initialize Attributes if undefined.
                 this.attributes['playOrder'] = Array.apply(null, {length: audioData.length}).map(Number.call, Number);
@@ -56,12 +56,12 @@ var stateHandlers = {
             this.emit(':responseReady');
         },
         'AMAZON.StopIntent' : function () {
-            var message = 'Good bye. God speed';
+            var message = 'God speed';
             this.response.speak(message);
             this.emit(':responseReady');
         },
         'AMAZON.CancelIntent' : function () {
-            var message = 'Good bye. God speed';
+            var message = 'God speed';
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -69,9 +69,16 @@ var stateHandlers = {
             // No session ended logic
         },
         'Unhandled' : function () {
+            var count = 0;
             var message = 'Sorry, I could not understand. First Tier';
-            this.response.speak(message); //.listen(message)
+            this.response.speak(message).listen(message)
             this.emit(':responseReady');
+            count += 1;
+            if (count >= 2) {
+                this.emit('NullAudioIntent');
+                console.log("force play");
+                count == 0;
+            }
         }
     }),
     playModeIntentHandlers : Alexa.CreateStateHandler(constants.states.PLAY_MODE, {
@@ -99,8 +106,8 @@ var stateHandlers = {
             //this.response.audioPlayerPlay('REPLACE_ALL', audioData, '12345', null, 0);
             if (this.attributes['playbackFinished']) {
                 this.handler.state = constants.states.START_MODE;
-                message = 'Welcome to null audio. Sit back and enjoy.';
-                reprompt = 'You can say, play the audio, to begin hearing some fucking noise.';
+                message = 'Welcome to Null Audio. Sit back and enjoy.';
+                reprompt = 'You can say, play the audio, to begin hearing some noise.';
             } else {
                 this.handler.state = constants.states.RESUME_DECISION_MODE;
                 message = 'You were listening to ' + audioData[this.attributes['playOrder'][this.attributes['index']]].title +
@@ -126,7 +133,7 @@ var stateHandlers = {
         'AMAZON.StartOverIntent' : function () { controller.startOver.call(this) },
         'AMAZON.HelpIntent' : function () {
             // This will be called while audio is playing and a user says "ask <invocation_name> for help"
-            var message = 'You are listening to null audio. You can say, Next or Previous to navigate through the our special playlist. ' +
+            var message = 'You are listening to Null Audio. You can say, Next or Previous to navigate through the our special playlist. ' +
                 'At any time, you can say Pause to pause the audio and Resume to resume.';
             this.response.speak(message).listen(message);
             this.emit(':responseReady');
@@ -170,12 +177,12 @@ var stateHandlers = {
             this.emit(':responseReady');
         },
         'AMAZON.StopIntent' : function () {
-            var message = 'Good bye. We hope you enjoyed our sounds!';
+            var message = 'God speed!';
             this.response.speak(message);
             this.emit(':responseReady');
         },
         'AMAZON.CancelIntent' : function () {
-            var message = 'Good bye. We hope you enjoyed our sounds!';
+            var message = 'God speed.';
             this.response.speak(message);
             this.emit(':responseReady');
         },
@@ -251,7 +258,7 @@ var controller = function () {
                     // Reached at the end. Thus reset state to start mode and stop playing.
                     this.handler.state = constants.states.START_MODE;
 
-                    var message = 'You have reached at the end of the playlist.';
+                    var message = 'You have reached the end of the playlist.';
                     this.response.speak(message).audioPlayerStop();
                     return this.emit(':responseReady');
                 }
@@ -279,7 +286,7 @@ var controller = function () {
                     // Reached at the end. Thus reset state to start mode and stop playing.
                     this.handler.state = constants.states.START_MODE;
 
-                    var message = 'You have reached at the start of the playlist.';
+                    var message = 'You have reached the start of the playlist.';
                     this.response.speak(message).audioPlayerStop();
                     return this.emit(':responseReady');
                 }
